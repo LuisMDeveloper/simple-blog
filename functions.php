@@ -127,6 +127,48 @@ function simple_blog_scripts() {
 add_action( 'wp_enqueue_scripts', 'simple_blog_scripts' );
 
 /**
+ * Enqueue scripts and styles.
+ */
+function add_google_fonts() {
+	//<link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+	$query_args = array(
+		'family' => 'Roboto:400,400italic,700,700italic',
+		'subset' => 'latin,latin-ext',
+	);
+	//wp_register_style( 'google_fonts', add_query_arg( $query_args, "https://fonts.googleapis.com/css" ), array(), null );
+	wp_enqueue_style( 'google_fonts', 'https://fonts.googleapis.com/css?family=Roboto:400,400italic,700,700italic&subset=latin,latin-ext', false );
+
+}
+add_action( 'wp_enqueue_scripts', 'add_google_fonts' );
+
+
+/**
+ * ********************************************************************************************************************
+ * RESPONSIVE IMAGES
+ * ********************************************************************************************************************
+ */
+if (!function_exists('add_responsive_class')) {
+	function add_responsive_class($content){
+
+		$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
+		$document = new DOMDocument();
+		libxml_use_internal_errors(true);
+		$document->loadHTML(utf8_decode($content));
+
+		$imgs = $document->getElementsByTagName('img');
+		foreach ($imgs as $img) {
+			$existing_class = $img->getAttribute('class');
+			$img->setAttribute('class', "img-responsive $existing_class");
+
+		}
+
+		$html = $document->saveHTML();
+		return $html;
+	}
+	add_filter('the_content', 'add_responsive_class');
+}
+
+/**
  * Implement the Custom Header feature.
  */
 require get_template_directory() . '/inc/custom-header.php';
@@ -150,3 +192,9 @@ require get_template_directory() . '/inc/customizer.php';
  * Load Jetpack compatibility file.
  */
 require get_template_directory() . '/inc/jetpack.php';
+
+/**
+ * Load wp_bootstrap_navwalker a custom walker file.
+ */
+require_once( get_template_directory() . '/inc/wp_bootstrap_navwalker.php');
+
