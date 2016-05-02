@@ -63,9 +63,14 @@ function simple_blog_entry_footer() {
 	}
 
 	if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) ) {
-		echo '<span class="comments-link">';
+		if (get_comments_number()==0) {
+			echo '<span class="comments-link">';
+		} else {
+			echo '<span class="comments-link"><span class="glyphicon glyphicon-comment" aria-hidden="true"></span> ';
+		}
 		/* translators: %s: post title */
-		comments_popup_link( sprintf( wp_kses( __( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'simple-blog' ), array( 'span' => array( 'class' => array() ) ) ), get_the_title() ) );
+		comments_popup_link('<span style="display: none">No Hay Comentarios en este post</span>');
+		//comments_popup_link( sprintf( wp_kses( __( 'Leave a Comment<span class="screen-reader-text"> on %s</span>', 'simple-blog' ), array( 'span' => array( 'class' => array() ) ) ), get_the_title() ) );
 		echo '</span>';
 	}
 

@@ -25,16 +25,16 @@ gulp.task( 'scss', function() {
         .pipe( gulp.dest( '.' ) )
         .pipe( minifycss() )
         .pipe( rename( { suffix: '.min' } ) )
-        .pipe( gulp.dest( '.' ) );
-        //.pipe( livereload() );
+        .pipe( gulp.dest( '.' ) )
+        .pipe( livereload() );
 } );
 
 gulp.task( 'watch', function() {
     livereload.listen();
     gulp.watch( './sass/**/*.scss', [ 'scss' ] );
-    //gulp.watch( './**/*.php' ).on( 'change', function( file ) {
-    //    livereload.changed( file );
-    //} );
+    gulp.watch( './**/*.php' ).on( 'change', function( file ) {
+        livereload.changed( file );
+    } );
 } );
 
 gulp.task('default', ['watch'], function() {

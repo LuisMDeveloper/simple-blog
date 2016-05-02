@@ -27,7 +27,7 @@
 	<div class="site-header">
 		<header id="masthead" role="banner">
 			<div class="header-row">
-				<nav id="site-navigation" class="main-navigation navbar navbar-default navbar-fixed-top" role="navigation">
+				<nav id="site-navigation" class="main-navigation navbar navbar-default" role="navigation">
 					<div class="container-fluid">
 						<!-- Brand and toggle get grouped for better mobile display -->
 						<div class="navbar-header">
