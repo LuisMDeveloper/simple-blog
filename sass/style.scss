@@ -54,6 +54,10 @@ $a-tags-hover: 'a:active, a:hover';
 .vertical-center {
 
 }
+//TODO fix this: Flush footer to bottom not fixed
+.site-content {
+  min-height: 739px !important;
+}
 
 /*--------------------------------------------------------------
 ## Color parts
@@ -350,7 +354,7 @@ $a-tags-hover: 'a:active, a:hover';
   background: $brand-info;
 }
 
-.widget {
+.widget:not(.widget_wpcom_social_media_icons_widget) {
   ul {
     padding: 0;
     list-style-type: none;
@@ -369,6 +373,19 @@ $a-tags-hover: 'a:active, a:hover';
       border-bottom: 1px dashed #7B7B7B;
     }
   }
+}
+
+.widget_wpcom_social_media_icons_widget {
+  ul {
+    padding: 0;
+    li {
+      a{
+        font-size: $font-size-h3;
+      }
+    }
+  }
+
+  @extend .text-center;
 }
 
 .widget_recent_comments {
@@ -394,13 +411,13 @@ $a-tags-hover: 'a:active, a:hover';
 ## Posts and pages
 --------------------------------------------------------------*/
 
-.post,.widget,.page.type-page,.posts-navigation {
+.post,.widget,.page.type-page,.posts-navigation,.post-navigation {
   background-color: #fff ;
   margin-bottom: 40px ;
   @extend .panel,.panel-default;
 }
 
-.posts-navigation {
+.posts-navigation,.post-navigation {
  h1, h2 {
    display: none;
  }
@@ -426,7 +443,7 @@ $a-tags-hover: 'a:active, a:hover';
   padding-right: 60px;
 }
 
-.posts-navigation,.widget,.entry-header {
+.posts-navigation,.post-navigation,.widget,.entry-header {
   padding: 33px 40px;
 }
 

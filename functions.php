@@ -118,6 +118,9 @@ function simple_blog_scripts() {
 
 	wp_enqueue_script( 'simple-blog-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
 
+	wp_enqueue_script( 'jquery', get_template_directory_uri() . '/js/jquery.min.js', array(), '20160502', true );
+	wp_enqueue_script( 'bootstrap', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '20160502', true );
+
 	wp_enqueue_script( 'simple-blog-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -167,6 +170,28 @@ if (!function_exists('add_responsive_class')) {
 	}
 	add_filter('the_content', 'add_responsive_class');
 }
+
+// Run this code on 'after_theme_setup', when plugins have already been loaded.
+add_action('after_setup_theme', 'my_load_plugin');
+// This function loads the plugin.
+function my_load_plugin() {
+
+	if (!class_exists('About_Me_Widget')) {
+		// load Social if not already loaded
+		include_once(get_template_directory() . '/include/widgets/About_Me_Widget.php');
+	}
+}
+
+if (!function_exists('register_about_me_widget')) {
+	function register_about_me_widget() {
+
+		register_widget( 'About_Me_Widget' );
+
+	}
+	add_action( 'widgets_init', 'register_about_me_widget' );
+}
+
+
 
 /**
  * Implement the Custom Header feature.
